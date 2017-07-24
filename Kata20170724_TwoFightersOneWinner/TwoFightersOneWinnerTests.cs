@@ -75,48 +75,6 @@ namespace Kata20170724_TwoFightersOneWinner
 
             return "";
         }
-
-        private static string Figher2AttachFighterAndCheckWinner(Fighter fighter1, Fighter fighter2)
-        {
-            Fighter2AttachFighter1(fighter1, fighter2);
-            if (Fighter1HadDeath(fighter1))
-            {
-                return fighter2.Name;
-            }
-
-            return string.Empty;
-        }
-
-        private static string Fighter1AttachFighterAndCheckWinner(Fighter fighter1, Fighter fighter2)
-        {
-            Fighter1AttachFighter2(fighter1, fighter2);
-            if (Fighter2HadDeath(fighter2))
-            {
-                return fighter1.Name;
-            }
-
-            return string.Empty;
-        }
-
-        private static bool Fighter1HadDeath(Fighter fighter1)
-        {
-            return fighter1.Health <= 0;
-        }
-
-        private static bool Fighter2HadDeath(Fighter fighter2)
-        {
-            return fighter2.Health <= 0;
-        }
-
-        private static void Fighter2AttachFighter1(Fighter fighter1, Fighter fighter2)
-        {
-            fighter1.Health -= fighter2.DamagePerAttack;
-        }
-
-        private static void Fighter1AttachFighter2(Fighter fighter1, Fighter fighter2)
-        {
-            fighter2.Health -= fighter1.DamagePerAttack;
-        }
     }
 
     public class Fighter
