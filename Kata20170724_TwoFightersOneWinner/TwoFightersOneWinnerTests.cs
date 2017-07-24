@@ -53,29 +53,27 @@ namespace Kata20170724_TwoFightersOneWinner
     {
         public string declareWinner(Fighter fighter1, Fighter fighter2, string firstAttacker)
         {
-            string winner;
+            var first_attacker = fighter1.Name == firstAttacker ? fighter1 : fighter2;
+            var second_attacker = fighter1.Name == firstAttacker ? fighter2 : fighter1;
+
             do
             {
-                if (fighter1.Name == firstAttacker)
+                second_attacker.Health -= first_attacker.DamagePerAttack;
+                if (second_attacker.Health <= 0)
                 {
-                    winner = Fighter1AttachFighterAndCheckWinner(fighter1, fighter2);
-                    if (winner != "") break;
-
-                    winner = Figher2AttachFighterAndCheckWinner(fighter1, fighter2);
-                    if (winner != "") break;
-                }
-                else
-                {
-                    winner = Figher2AttachFighterAndCheckWinner(fighter1, fighter2);
-                    if (winner != "") break;
-
-                    winner = Fighter1AttachFighterAndCheckWinner(fighter1, fighter2);
-                    if (winner != "") break;
+                    return first_attacker.Name;
                 }
 
-            } while (!Fighter1HadDeath(fighter1) && !Fighter2HadDeath(fighter2));
+                first_attacker.Health -= second_attacker.DamagePerAttack;
 
-            return winner;
+                if (first_attacker.Health <= 0)
+                {
+                    return second_attacker.Name;
+                }
+
+            } while (first_attacker.Health >= 0 && second_attacker.Health >= 0);
+
+            return "";
         }
 
         private static string Figher2AttachFighterAndCheckWinner(Fighter fighter1, Fighter fighter2)
@@ -102,7 +100,7 @@ namespace Kata20170724_TwoFightersOneWinner
 
         private static bool Fighter1HadDeath(Fighter fighter1)
         {
-            return fighter1.Health <=0;
+            return fighter1.Health <= 0;
         }
 
         private static bool Fighter2HadDeath(Fighter fighter2)
